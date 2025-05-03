@@ -1,2 +1,2 @@
-<img src="{{ asset('images/logoFlowArt.png') }}" alt="FlowArt Logo" class="w-20 h-20 mx-auto">
 
+<img src="{{asset('images/logo2.png')}}" alt="Logo"{{ $attributes }}>

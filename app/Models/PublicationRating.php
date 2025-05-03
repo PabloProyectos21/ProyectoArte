@@ -12,7 +12,7 @@ class PublicationRating extends Model
 
     public $incrementing = false;
     protected $primaryKey = null;
-    protected $fillable = ['user_id', 'publication_id', 'rating'];
+    protected $fillable = ['user_id', 'publication_id'];
 
     public function user(): BelongsTo
     {

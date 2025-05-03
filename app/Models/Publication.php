@@ -17,10 +17,13 @@ class Publication extends Model
         'image_route',
         'title',
         'description',
-        'rating_avg',
         'number_of_ratings',
+        'clicks',
+        'category',
         'publication_date',
     ];
+
+
 
     public function user(): BelongsTo
     {
@@ -36,4 +39,9 @@ class Publication extends Model
     {
         return $this->hasMany(PublicationRating::class);
     }
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'publication_ratings');
+    }
+
 }
