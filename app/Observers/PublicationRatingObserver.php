@@ -22,7 +22,7 @@ class PublicationRatingObserver
     private function recalculate(Publication $publication)
     {
         $publication->number_of_ratings = $publication->ratings()->count();
-        $publication->rating_avg = $publication->ratings()->avg('rating');
         $publication->save();
+
     }
 }

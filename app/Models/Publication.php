@@ -34,11 +34,16 @@ class Publication extends Model
     {
         return $this->hasMany(Comment::class);
     }
-
-    public function ratings(): HasMany
+    public function favoredByUsers()
     {
-        return $this->hasMany(PublicationRating::class);
+        return $this->belongsToMany(User::class, 'user_publication_favorite')->withTimestamps();
     }
+
+    public function ratings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PublicationRating::class, 'publication_id');
+    }
+
     public function likedByUsers()
     {
         return $this->belongsToMany(User::class, 'publication_ratings');

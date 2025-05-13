@@ -12,7 +12,9 @@
                     <x-application-logo-login class="block h-[156px] w-auto"/>
                 </a>
                 <form method="POST" action="{{ route('login') }}">
+
                     @csrf
+                    <input type="hidden" name="redirect" value="{{ request('redirect', url()->previous()) }}">
 
                     <!-- Email Address -->
                     <div>

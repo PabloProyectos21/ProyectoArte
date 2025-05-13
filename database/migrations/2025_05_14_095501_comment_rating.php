@@ -6,17 +6,18 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up(): void
+    public function up()
     {
         Schema::create('comment_ratings', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->id();
             $table->foreignId('comment_id')->constrained()->onDelete('cascade');
-            $table->boolean('like')->default(true);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
-            $table->primary(['user_id', 'comment_id']);
+            $table->unique(['comment_id', 'user_id']); // Un solo like por usuario por comentario
         });
     }
+
 
     public function down(): void
     {

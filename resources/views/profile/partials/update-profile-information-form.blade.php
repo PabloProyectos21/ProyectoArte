@@ -1,3 +1,4 @@
+
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -13,7 +14,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -22,7 +23,51 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        <div>
+            <x-input-label for="surname" :value="__('Surname')" />
+            <x-text-input id="surname" name="surname" type="text" class="mt-1 block w-full" :value="old('surname', $user->surname)" required autofocus autocomplete="surname" />
+            <x-input-error class="mt-2" :messages="$errors->get('surname')" />
+        </div>
+        <div>
+            <x-input-label for="description" :value="__('Description')" />
+            <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description', $user->description)" required autofocus autocomplete="description" />
+            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+        </div>
+        <div>
 
+            @if ($user->profile_picture)
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">{{ __('Current profile picture:') }}</p>
+                    @php
+                        $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
+                        $imageSrc = auth()->user()->profile_picture
+                            ? ($isUrl ? auth()->user()->profile_picture : asset('storage/' . auth()->user()->profile_picture))
+                            : asset('images/profile_pictures/default-user.jpg');
+                    @endphp
+
+                    <img class="w-13 h-13 rounded-full"
+                         src="{{ $imageSrc }}"
+                         alt="{{ auth()->user()->name }}" />               </div>
+            @endif
+            <x-input-label for="profile_picture" :value="__('Profile Picture')" />
+
+            <input
+                id="profile_picture"
+                name="profile_picture"
+                type="file"
+                accept="image/*"
+                class="mt-1 block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />
+        </div>
+        <div>
+            <x-input-label for="is_private" :value="__('Profile Visibility')" />
+            <select id="is_private" name="is_private" class="mt-1 block w-full border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <option value="0" {{ old('is_private', $user->is_private) == 0 ? 'selected' : '' }}>{{ __('Public') }}</option>
+                <option value="1" {{ old('is_private', $user->is_private) == 1 ? 'selected' : '' }}>{{ __('Private') }}</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('is_private')" />
+        </div>
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />

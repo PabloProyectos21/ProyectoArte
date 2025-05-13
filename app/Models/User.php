@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -20,10 +21,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'surname',
+        'username',
         'email',
         'password',
         'profile_picture',
         'description',
+        'is_premium',
+        'is_private'
     ];
 
 
@@ -52,18 +56,33 @@ class User extends Authenticatable
     }
     // app/Models/User.php
 
-    public function followers()
+    public function publications()
     {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+        return $this->hasMany(Publication::class);
     }
 
+// Usuarios que este usuario sigue
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
-    public function likedPublications()
+// User.php
+    public function followers()
     {
-        return $this->belongsToMany(Publication::class, 'publication_ratings');
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
     }
+    public function favoritePublications()
+    {
+        return $this->belongsToMany(Publication::class, 'user_publication_favorite')->withTimestamps();
+    }
+
+
+    public function isFollowing(User $user): bool
+    {
+        return $this->following->contains($user);
+    }
+
+
+
 
 }
