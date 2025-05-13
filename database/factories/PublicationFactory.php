@@ -11,8 +11,8 @@ class PublicationFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'image_route' => fake()->randomElement([
-                'https://picsum.photos/400/480.jpg',
-                'https://picsum.photos/200/200.jpg'
+                'image_route' => 'https://picsum.photos/seed/' . fake()->uuid() . '/1000/1000.jpg',
+
             ]),
             'title' => fake()->sentence(3),
             'description' => fake()->paragraph(),

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Auth;
-
+use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -45,11 +45,16 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => __('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        // Guardamos la URL anterior para redireccionar después
+        if (! session()->has('url.intended')) {
+            session(['url.intended' => url()->previous()]);
+        }
     }
 
     /**

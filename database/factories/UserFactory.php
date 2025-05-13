@@ -18,6 +18,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->firstName($gender),
             'surname' => fake()->lastName(),
+            'username' => $this->faker->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('password'), // Contraseña fija para pruebas
@@ -25,6 +26,8 @@ class UserFactory extends Factory
             'user_permission_level' => 'user',
             'profile_picture' => $profileUrl,
             'description' => fake()->sentence(10),
+            'is_premium' => fake()->boolean(30),  // 30% chance
+            'is_private' => fake()->boolean(20),  // 20% chance
         ];
     }
 }

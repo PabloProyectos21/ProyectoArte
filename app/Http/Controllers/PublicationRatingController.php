@@ -8,20 +8,32 @@ use App\Models\Publication;
 
 class PublicationRatingController extends Controller
 {
-    public function toggleLike(Request $request, $publicationId)
+
+    public function toggleLike(Request $request, Publication $publication): \Illuminate\Http\JsonResponse
     {
-        $user = auth()->user();
+        $user = $request->user();
 
-        // Verifica si ya ha dado like
-        $alreadyLiked = $user->likedPublications()->where('publication_id', $publicationId)->exists();
-
-        if ($alreadyLiked) {
-            $user->likedPublications()->detach($publicationId);
-        } else {
-            $user->likedPublications()->attach($publicationId);
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return redirect()->back(); // o response()->json([...]) si usas AJAX
+        $liked = $publication->ratings()->where('user_id', $user->id)->exists();
+
+        if ($liked) {
+            $publication->ratings()->where('user_id', $user->id)->delete();
+        } else {
+            // 👇 Aquí es donde hacemos el cambio
+            $publication->ratings()->firstOrCreate([
+                'user_id' => $user->id,
+                'publication_id' => $publication->id,
+            ]);
+
+        }
+
+        $count = $publication->ratings()->count();
+
+        return response()->json(['count' => $count]);
     }
+
 }
 

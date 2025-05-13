@@ -14,6 +14,7 @@ class PublicationRating extends Model
     protected $primaryKey = null;
     protected $fillable = ['user_id', 'publication_id'];
 
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
