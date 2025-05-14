@@ -12,7 +12,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $gender = fake()->randomElement(['men', 'women']);
-        $number = fake()->numberBetween(1, 99);
+        $number = fake()->numberBetween(3, 99);
         $profileUrl = "https://randomuser.me/api/portraits/{$gender}/{$number}.jpg";
 
         return [

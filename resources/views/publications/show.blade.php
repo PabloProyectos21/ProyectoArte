@@ -18,6 +18,29 @@
                     <h5 class="text-sm font-semibold text-gray-900 dark:text-white">{{"@". $publication->user->username ?? 'Anonymous' }}</h5>
                     <span class="text-xs text-gray-400 ml-2">{{ $publication->created_at->diffForHumans() }}</span>
                 </div>
+                @auth
+                    @if (auth()->id() === $publication->user_id || auth()->user()->user_permission_level === 'admin')
+                        <div class="ml-auto flex gap-3">
+                        <!-- Edit -->
+                            <a href="{{ route('publications.edit', $publication->id) }}"
+                               class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold px-4 py-2 rounded-lg hover:shadow-lg transition">
+                                Edit Post
+                            </a>
+
+                            <!-- Delete -->
+                            <form action="{{ route('publications.destroy', $publication->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition">
+                                    Delete
+                                </button>
+                            </form>
+
+                        </div>
+                    @endif
+                @endauth
+
             </div>
 
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ $publication->title }}</h1>
