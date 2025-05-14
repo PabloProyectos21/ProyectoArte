@@ -5,6 +5,7 @@
 
     <div class="p-4 rounded-lg overflow-hidden">
         @include('components.bg-premium')
+
         <div class=" relative z-40 max-w-2xl mx-auto mt-10 p-6 bg-white  rounded-lg shadow text-align-center place-items-center">
 
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Upgrade to Premium</h1>
@@ -26,7 +27,7 @@
                 <form method="POST" action="{{ route('premium.subscribe') }}">
                     @csrf
                     <button type="submit"
-                            class="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition">
+                            class="px-6 py-3 text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm text-center me-2 mb-2 transition">
                         Become Premium
                     </button>
                 </form>

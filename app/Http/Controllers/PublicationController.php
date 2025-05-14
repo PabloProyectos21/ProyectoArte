@@ -49,5 +49,87 @@ class PublicationController extends Controller
 
         return response()->json(['favorited' => $user->favoritePublications->contains($publication->id)]);
     }
+    public function create()
+    {
+        return view('publications.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category' => 'required|in:photography,tattoos,painting,draws,fashion,other',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imagePath = $request->file('image')->store('publications', 'public');
+
+        Publication::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'description' => $request->description,
+            'category' => $request->category,
+            'image_route' => $imagePath,
+            'number_of_ratings' => 0,
+            'clicks' => 0,
+            'publication_date' => now(),
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Publication created successfully.');
+    }
+    public function edit(Publication $publication)
+    {
+        // Solo el dueño o un administrador puede editar
+        if (auth()->id() !== $publication->user_id && auth()->user()->user_permission_level !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('publications.edit', compact('publication'));
+    }
+
+
+    public function update(Request $request, Publication $publication)
+    {
+        // Permitir solo al autor o a un administrador
+        if (auth()->id() !== $publication->user_id && auth()->user()->user_permission_level !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category' => 'required|in:photography,tattoos,painting,draws,fashion,other',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('publications', 'public');
+            $publication->image_route = $imagePath;
+        }
+
+        $publication->title = $request->title;
+        $publication->description = $request->description;
+        $publication->category = $request->category;
+        $publication->save();
+
+        return redirect()->route('publications.show', $publication->id)
+            ->with('success', 'Publication updated successfully.');
+    }
+
+    public function destroy(Publication $publication)
+    {
+        // Solo el dueño o un admin puede eliminar
+        if (auth()->id() !== $publication->user_id && auth()->user()->user_permission_level !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $userId = $publication->user_id;
+        $publication->delete();
+
+        return redirect()->route('profile.view', $userId)
+            ->with('success', 'Publication deleted successfully.');
+    }
+
 
 }

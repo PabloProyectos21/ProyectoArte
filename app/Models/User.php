@@ -27,7 +27,9 @@ class User extends Authenticatable
         'profile_picture',
         'description',
         'is_premium',
-        'is_private'
+        'is_private',
+        'user_permission_level',
+
     ];
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publication;
+use App\Models\User;
 
 class ExploreController extends Controller
 {

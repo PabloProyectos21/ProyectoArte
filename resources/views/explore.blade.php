@@ -69,16 +69,20 @@
                     <div class="focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 break-inside-avoid" data-popover-target="popover-user-profile-{{ $publication->id }}" data-popover-trigger="hover">
 
                     <a href="{{ route('publications.show', $publication->id) }}">
-                        <img src="{{ $publication->image_route }}"
-                             alt="{{ $publication->title }}"
-                             class="w-full rounded-lg shadow hover:scale-[1.02] transition duration-300 ease-in-out">
+                        @php
+                            $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
+                            $imageSrc = $isUrl ? $publication->image_route : asset('storage/' . $publication->image_route);
+                        @endphp
+
+                        <img src="{{ $imageSrc }}" alt="{{ $publication->title }}"  class="w-full rounded-lg shadow hover:scale-[1.02] transition duration-300 ease-in-out">
+
                         @if($publication->user->is_premium===1)
                             <div data-popover id="popover-user-profile-{{ $publication->id }}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-white transition-opacity duration-300 bg-gradient-to-r from-purple-400 via-pink-500 to-red-400  border-5 border-x-4 border-y-4 border-fuchsia-400 rounded-lg shadow-xs opacity-0">
                         @else
                         <div data-popover id="popover-user-profile-{{ $publication->id }}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-red-50 border border-gray-200 rounded-lg shadow-xs opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
                         @endif
                             <div class="p-3">
-                                <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-6 mb-2">
                                     <a href="{{ route('profile.view', $publication->user->id) }}">
                                         @php
                                             $isUrl = Str::startsWith($publication->user->profile_picture, ['http://', 'https://']);
