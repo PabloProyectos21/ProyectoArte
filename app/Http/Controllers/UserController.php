@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Commercial;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,10 @@ class UserController extends Controller
         }
 
         $users = $query->inRandomOrder()->paginate(12);
-
-        return view('users.users-explore', compact('users'));
+        $commercial = Commercial::inRandomOrder()
+            ->with('company')
+            ->first();
+        return view('users.users-explore', compact('users','commercial'));
     }
 
     public function show($id)
@@ -35,6 +38,15 @@ class UserController extends Controller
     }
 
 
+    public function searchByUsername(Request $request)
+    {
+        $query = $request->input('q', '');
+        $users = \App\Models\User::where('username', 'like', $query . '%')
+            ->where('id', '!=', auth()->id()) // No mostrarte a ti mismo
+            ->limit(10)
+            ->get(['id', 'username', 'name', 'profile_picture']);
 
+        return response()->json($users);
+    }
 
 }

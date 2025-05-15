@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ExploreController;
@@ -49,8 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/premium/subscribe', [PremiumController::class, 'subscribe'])->name('premium.subscribe');
     Route::post('/premium/cancel', [PremiumController::class, 'cancel'])->name('premium.cancel');
 
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::get('/chats/{chat}', [ChatController::class, 'show'])->name('chats.show');
+    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
 
-
+    Route::post('/chats/{chat}/message', [ChatController::class, 'sendMessage'])->name('chats.message');
+    Route::post('/chats/create', [ChatController::class, 'create'])->name('chats.create');
+    Route::post('/chats/create-or-redirect', [ChatController::class, 'createOrRedirect'])->name('chats.createOrRedirect');
+    Route::get('/users/search', [App\Http\Controllers\UserController::class, 'searchByUsername'])->name('users.autocomplete');
 });
 
 

@@ -15,9 +15,9 @@
                             ? $publication->image_route
                             : asset('storage/' . $publication->image_route);
                     @endphp
-
+                    <a href="{{ route('publications.show', $publication->id) }}">
                     <img class="rounded-t-lg w-full object-cover h-48" src="{{ $imageSrc }}" alt="{{ $publication->title }}" />
-
+                    </a>
                     <div class="p-5">
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $publication->title }}</h5>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($publication->description, 100) }}</p>

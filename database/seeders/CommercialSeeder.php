@@ -9,7 +9,7 @@ class CommercialSeeder extends Seeder
 {
     public function run(): void
     {
-        $images = ['ad2.jpg', 'ad3.jpg', 'ad4.jpg', 'ad5.jpg'];
+        $images = ['ad2.png', 'ad3.png', 'ad4.png', 'ad5.png'];
 
         foreach ($images as $image) {
             Commercial::factory()->create([

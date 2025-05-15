@@ -42,7 +42,13 @@
             <!-- Current image preview -->
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-700">Current Image</label>
-                <img src="{{ asset('storage/' . $publication->image_route) }}" alt="Current image" class="w-full max-w-xs rounded-lg shadow">
+                @php
+                    $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
+                    $imageSrc = $isUrl ? $publication->image_route : asset('storage/' . $publication->image_route);
+                @endphp
+
+                <img src="{{ $imageSrc }}" alt="{{ $publication->title }}"  class="w-full rounded-lg shadow hover:scale-[1.02] transition duration-300 ease-in-out">
+
             </div>
 
             <!-- New image -->

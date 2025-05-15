@@ -1,7 +1,13 @@
 <x-app-layout>
     @include('components.sidebar')
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 bg: border-gray-200 rounded-lg dark:border-white-700 mt-14 place-items-center">
+        @if($publication->user->is_premium && $publication->user->background_image)
+            <div
+                class="fixed inset-0 z-0"
+                style="background: url('{{ asset($publication->user->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+            </div>
+        @endif
+        <div class="relative p-4  rounded-lg mt-14 place-items-center z-10">
 
         <div class="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow ">
             @php

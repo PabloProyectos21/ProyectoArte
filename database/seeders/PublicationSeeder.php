@@ -13,11 +13,11 @@ class PublicationSeeder extends Seeder
         $users = User::all();
 
         if ($users->count() === 0) {
-            $users = User::factory(5)->create();
+            $users = User::factory(10)->create();
         }
 
         foreach ($users as $user) {
-            Publication::factory(rand(2, 5))->create([
+            Publication::factory(rand(1, 37))->create([
                 'user_id' => $user->id,
             ]);
         }

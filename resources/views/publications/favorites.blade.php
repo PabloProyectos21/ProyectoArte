@@ -1,10 +1,24 @@
 <x-app-layout>
     @include('components.sidebar')
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 bg: border-gray-200 rounded-lg dark:border-white-700 mt-14 place-items-center">
+        <div class="p-4 border-2 bg-white border-gray-200 rounded-lg dark:border-white-700 mt-14 place-items-center">
+            @guest
+                @isset($commercial)
+                    <x-ad-card :commercial="$commercial" />
+                @endisset
+            @endguest
 
+            @auth
+                @isset(Auth::user()->is_premium)
+                    @if(Auth::user()->is_premium==0)
+                        @isset($commercial)
+                            <x-ad-card :commercial="$commercial" />
+                        @endisset
+                    @endif
+                @endisset
+            @endauth
     <div class="p-4  mt-10">
-        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">Your Favorite Publications</h1>
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">Your Favorite Posts</h1>
 
         @if ($favorites->isEmpty())
             <p class="text-gray-500 dark:text-gray-400">You haven't saved any favorites yet.</p>

@@ -15,6 +15,11 @@ class PremiumController extends Controller
     public function subscribe(Request $request)
     {
         $user = Auth::user();
+        if($user->background_image ==null){
+            $user->background_image='fondos/fondo1.png';
+        }
+
+
         $user->is_premium = true;
         $user->save();
 

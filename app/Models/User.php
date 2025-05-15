@@ -28,6 +28,7 @@ class User extends Authenticatable
         'description',
         'is_premium',
         'is_private',
+        'background_image',
         'user_permission_level',
 
     ];
@@ -84,7 +85,16 @@ class User extends Authenticatable
         return $this->following->contains($user);
     }
 
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'chat_user');
+    }
 
+// Relación con los mensajes que ha enviado el usuario
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
 
 
 }
