@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commercial;
 use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Models\User;
@@ -25,9 +26,11 @@ class ExploreController extends Controller
             $query->where('category', $request->category);
         }
 
-        $publications = $query->latest()->paginate(16)->withQueryString();
-
-        return view('explore', compact('publications'));
+        $publications = $query->inRandomOrder()->paginate(16)->withQueryString();
+        $commercial = Commercial::inRandomOrder()
+            ->with('company')
+            ->first();
+        return view('explore', compact('publications','commercial'));
     }
 
     public function show($id)

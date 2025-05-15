@@ -3,7 +3,23 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4   rounded-lg ">
 
+
     <section class="px-4 sm:px-8 py-10  min-h-screen">
+        @guest
+            @isset($commercial)
+                <x-ad-card :commercial="$commercial" />
+            @endisset
+        @endguest
+
+        @auth
+            @isset(Auth::user()->is_premium)
+                @if(Auth::user()->is_premium==0)
+                    @isset($commercial)
+                        <x-ad-card :commercial="$commercial" />
+                    @endisset
+                @endif
+            @endisset
+        @endauth
         <form method="GET" action="{{ route('explore') }}" class="max-w-sm mx-auto">
         <div class="flex">
                 <div class="relative">

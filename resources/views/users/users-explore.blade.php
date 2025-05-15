@@ -3,7 +3,21 @@
 @include('components.sidebar')
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg  mt-14">
+            @guest
+                @isset($commercial)
+                    <x-ad-card :commercial="$commercial" />
+                @endisset
+            @endguest
 
+            @auth
+                @isset(Auth::user()->is_premium)
+                    @if(Auth::user()->is_premium==0)
+                        @isset($commercial)
+                            <x-ad-card :commercial="$commercial" />
+                        @endisset
+                    @endif
+                @endisset
+            @endauth
             <form method="GET" action="{{ route('users.explore') }}" class="max-w-sm mx-auto">
                 <div class="flex">
 
@@ -55,10 +69,23 @@
                                     @if($user->is_premium===1)
                                 <span class="text-sm text-white pb-1">{{"@". $user->username ?? 'Art Lover' }}</span>
                                     @else
-                                        <span class="text-sm text-gray-500 dark:text-gray-400 pb-1">{{"@". $user->username ?? 'Art Lover' }}</span>
+                                        <span class="text-sm text-gray-500 pb-1">{{"@". $user->username ?? 'Art Lover' }}</span>
                                         @endif
-                                @include('components.follow-form')
-                                <ul class="flex text-sm">
+                                <div class="flex place-items-center">
+                                    @include('components.follow-form')
+                                    @if (Auth::check() && Auth::id() !== $user->id)
+                                        <form method="POST" action="{{ route('chats.store') }}" class="mb-6">
+                                            @csrf
+                                            <input type="hidden" id="selected_username" name="username">
+                                            <input type="hidden" id="selected_user_id" name="user_id">
+                                                <button
+                                                    type="submit"  class="follow-btn px-4 py-2 text-lg text-white rounded-lg bg-sky-400 hover:bg-gray-600">
+                                                    {{__(' Send message')}}
+                                                </button>
+                                        </form>
+                                        @endif
+                                </div>
+                                    <ul class="flex text-sm">
                                     <li class="me-2">
                                         @if($user->is_premium===1)
                                         <span class="font-semibold text-white ">{{ $user->following_count }}</span>
@@ -83,11 +110,12 @@
 
                         </div>
                     @endforeach
-                        <div class="mt-10 flex justify-center">
-                            {{ $users->withQueryString()->links() }}
-                        </div>
+
 
                 </div>
+                                <div class="mt-10 flex justify-center">
+                                    {{ $users->withQueryString()->links() }}
+                                </div>
             </section>
         </div>
     </div>

@@ -67,12 +67,19 @@
 
 
                 </div>
+                @isset($commercial)
+                    <x-ad-card :commercial="$commercial" />
+                @endisset
             @endguest
-            @if(Auth::user()->is_premium)
-            @isset($commercial)
-                <x-ad-card :commercial="$commercial" />
-            @endisset
-            @endif
+            @auth
+                @isset(Auth::user()->is_premium)
+                    @if(Auth::user()->is_premium==0)
+                        @isset($commercial)
+                            <x-ad-card :commercial="$commercial" />
+                        @endisset
+                    @endif
+                @endisset
+            @endauth
             @auth
                 <div
                     class="relative z-20 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-20 sm:py-28 ">

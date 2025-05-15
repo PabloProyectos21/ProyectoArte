@@ -26,7 +26,7 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="bg-emerald-500 text-black px-6 py-2 rounded-lg shadow hover:from-green-600 hover:to-emerald-600 transition">
+                <button type="submit" class="bg-emerald-500 text-white px-6 py-2 rounded-lg shadow hover:from-green-600 hover:to-emerald-600 transition">
                     Save Company
                 </button>
             </div>

@@ -14,7 +14,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -90,6 +90,25 @@
                     @endif
                 </div>
             @endif
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                Elige el fondo para tu perfil premium:
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                @for ($i = 1; $i <= 5; $i++)
+                    <label>
+                        <input type="radio" name="background_image" value="fondos/fondo{{ $i }}.png"
+                               class="peer sr-only"
+                        {{ (old('background_image', $user->background_image ?? '') == 'fondos/fondo'.$i.'.png') ? 'checked' : '' }}/>
+                        <img src="{{ asset('fondos/fondo'.$i.'.png') }}" alt="backgorundimage"
+                             class="w-full h-32 object-cover rounded-lg border-4 border-transparent peer-checked:border-purple-600 cursor-pointer transition">
+                    </label>
+                @endfor
+            </div>
+            @error('profile_background')
+            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="flex items-center gap-4">

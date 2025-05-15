@@ -41,6 +41,6 @@ class UserSeeder extends Seeder
             'is_private' => false,
         ]);
 
-        User::factory(9)->create();
+        User::factory(37)->create();
     }
 }
