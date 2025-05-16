@@ -91,6 +91,7 @@
                 </div>
             @endif
         </div>
+        @if(Auth::user()->is_premium==1)
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                 Elige el fondo para tu perfil premium:
@@ -110,7 +111,7 @@
             <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
             @enderror
         </div>
-
+        @endif
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

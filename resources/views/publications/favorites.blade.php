@@ -1,7 +1,15 @@
 <x-app-layout>
     @include('components.sidebar')
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 bg-white border-gray-200 rounded-lg dark:border-white-700 mt-14 place-items-center">
+        @auth
+            @if(Auth::user()->is_premium && Auth::user()->background_image)
+                <div
+                    class="fixed inset-0 z-0"
+                    style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                </div>
+            @endif
+        @endauth
+        <div class="relative z-10 p-4 border-2 bg-white border-gray-200 rounded-lg dark:border-white-700 mt-14 place-items-center">
             @guest
                 @isset($commercial)
                     <x-ad-card :commercial="$commercial" />
