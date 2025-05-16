@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'username' => 'pabloruiz',
             'is_premium' => true,
             'is_private' => false,
+            'background_image'=>'fondos/fondo1.png',
         ]);
 
         User::create([

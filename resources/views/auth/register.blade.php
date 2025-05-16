@@ -38,6 +38,11 @@
                             <x-input-error :messages="$errors->get('surname')" class="mt-2" />
                         </div>
                         <div>
+                            <label for="Username" >{{__('Username')}}</label>
+                            <x-text-input type="username" name="username" :value="old('username')" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="JonCena" required autocomplete="username"/>
+                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                        </div>
+                        <div>
                             <label for="email" >Your email</label>
                             <x-text-input type="email" name="email" :value="old('email')" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@email.com" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />

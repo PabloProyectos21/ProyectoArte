@@ -1,7 +1,13 @@
 <x-app-layout>
     @include('components.sidebar')
     <div class="p-4 sm:ml-64">
-        <div class="p-4   rounded-lg ">
+        @if(Auth::user()->is_premium && Auth::user()->background_image)
+            <div
+                class="fixed inset-0 z-0"
+                style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+            </div>
+        @endif
+        <div class="relative p-4  rounded-lg mt-14 z-10">
     <div class="max-w-2xl mx-auto py-10 px-4">
         <h1 class="text-3xl font-bold mb-6 text-gray-800">Create Publication</h1>
 
@@ -35,7 +41,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Image</label>
                 <input type="file" name="image" accept="image/*"
-                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                       class="mt-1 block w-full bg-white border-gray-300 rounded-md shadow-sm" required>
             </div>
 
             <div class="flex justify-end">

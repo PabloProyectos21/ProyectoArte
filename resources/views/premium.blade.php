@@ -36,7 +36,7 @@
 
         <div class="relative z-40 bg-white  mt-10">
             <table class="w-full text-left text-sm text-gray-700  border rounded-lg">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-center">
+                <thead class="bg-white text-center">
                 <tr>
                     <th class="px-4 py-2">{{__('Advantages')}}</th>
                     <th class="px-4 py-2">{{__('Free')}}</th>
@@ -44,22 +44,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="bg-gray-100 dark:bg-gray-700 text-center">
+                <tr class="bg-white text-center">
                     <td class="px-4 py-2">{{__('Unlimited posts')}}</td>
                     <td class="px-4 py-2 text-center">✔️</td>
                     <td class="px-4 py-2 text-center">✔️</td>
                 </tr>
-                <tr class="bg-gray-100 dark:bg-gray-700 text-center">
+                <tr class="bg-white  dark:bg-gray-700 text-center">
                     <td class="px-4 py-2">{{__('Featured profile')}}</td>
                     <td class="px-4 py-2 text-center">❌</td>
                     <td class="px-4 py-2 text-center">✔️</td>
                 </tr>
-                <tr class="bg-gray-100 dark:bg-gray-700 text-center">
+                <tr class="bg-white  dark:bg-gray-700 text-center">
                     <td class="px-4 py-2">{{__("No advertising's")}}</td>
                     <td class="px-4 py-2 text-center">❌</td>
                     <td class="px-4 py-2 text-center">✔️</td>
                 </tr>
-                <tr class="bg-gray-100 dark:bg-gray-700 text-center">
+                <tr class="bg-white  dark:bg-gray-700 text-center">
                     <td class="px-4 py-2">{{__('Instant support')}}</td>
                     <td class="px-4 py-2 text-center">❌</td>
                     <td class="px-4 py-2 text-center">✔️</td>

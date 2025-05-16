@@ -14,6 +14,7 @@ class UserFactory extends Factory
         $gender = fake()->randomElement(['men', 'women']);
         $number = fake()->numberBetween(3, 99);
         $profileUrl = "https://randomuser.me/api/portraits/{$gender}/{$number}.jpg";
+        $isPremium = fake()->boolean(30); // 30% chance de ser premium
 
         return [
             'name' => fake()->firstName($gender),
@@ -26,9 +27,11 @@ class UserFactory extends Factory
             'user_permission_level' => 'user',
             'profile_picture' => $profileUrl,
             'description' => fake()->sentence(10),
-            'is_premium' => fake()->boolean(30),  // 30% chance
+            'is_premium' => $isPremium,
+            'background_image' => $isPremium ? 'fondos/fondo1.png' : null,
             'is_private' => fake()->boolean(20),  // 20% chance
         ];
     }
+
 }
 

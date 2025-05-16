@@ -1,8 +1,17 @@
 
 <x-app-layout>
 @include('components.sidebar')
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 rounded-lg  mt-14">
+        <div class="p-4 sm:ml-64">
+            @auth
+                @if(Auth::user()->is_premium && Auth::user()->background_image)
+                    <div
+                        class="fixed inset-0 z-0"
+                        style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                    </div>
+                @endif
+            @endauth
+            <div class="relative p-4  rounded-lg mt-14 z-10">
+
             @guest
                 @isset($commercial)
                     <x-ad-card :commercial="$commercial" />
@@ -71,16 +80,16 @@
                                     @else
                                         <span class="text-sm text-gray-500 pb-1">{{"@". $user->username ?? 'Art Lover' }}</span>
                                         @endif
-                                <div class="flex place-items-center">
+                                    <div class="flex items-center gap-3">
                                     @include('components.follow-form')
                                     @if (Auth::check() && Auth::id() !== $user->id)
-                                        <form method="POST" action="{{ route('chats.store') }}" class="mb-6">
+                                        <form method="POST" action="{{ route('chats.store') }}" class="">
                                             @csrf
-                                            <input type="hidden" id="selected_username" name="username">
-                                            <input type="hidden" id="selected_user_id" name="user_id">
+                                            <input type="hidden" id="selected_username" name="username" value="{{$user->username}}">
+                                            <input type="hidden" id="selected_user_id" name="user_id" value="{{$user->id}}">
                                                 <button
                                                     type="submit"  class="follow-btn px-4 py-2 text-lg text-white rounded-lg bg-sky-400 hover:bg-gray-600">
-                                                    {{__(' Send message')}}
+                                                    {{__('Chat')}}
                                                 </button>
                                         </form>
                                         @endif
