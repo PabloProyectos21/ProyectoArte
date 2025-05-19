@@ -1,6 +1,7 @@
 
 <x-app-layout>
 @include('components.sidebar')
+
         <div class="p-4 sm:ml-64">
             @auth
                 @if(Auth::user()->is_premium && Auth::user()->background_image)
@@ -10,7 +11,7 @@
                     </div>
                 @endif
             @endauth
-            <div class="relative p-4  rounded-lg mt-14 z-10">
+            <div class="relative p-4  rounded-lg mt-14 z-30">
 
             @guest
                 @isset($commercial)
@@ -49,7 +50,7 @@
                 </div>
             </form>
 
-
+                <div class="relative z-40">
             <section class="py-8 px-6  dark:bg-gray-900 min-h-screen">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach ($users as $user)
@@ -80,40 +81,44 @@
                                     @else
                                         <span class="text-sm text-gray-500 pb-1">{{"@". $user->username ?? 'Art Lover' }}</span>
                                         @endif
-                                    <div class="flex items-center gap-3">
-                                    @include('components.follow-form')
-                                    @if (Auth::check() && Auth::id() !== $user->id)
-                                        <form method="POST" action="{{ route('chats.store') }}" class="">
-                                            @csrf
-                                            <input type="hidden" id="selected_username" name="username" value="{{$user->username}}">
-                                            <input type="hidden" id="selected_user_id" name="user_id" value="{{$user->id}}">
+                                    <div class="flex flex-col lg:flex-row items-center justify-center gap-2 w-full mt-2  mx-auto">
+
+
+                                        @include('components.follow-form')
+                                        @if (Auth::check() && Auth::id() !== $user->id)
+                                            <form method="POST" action="{{ route('chats.store') }}" class="w-full sm:w-auto">
+                                                @csrf
+                                                <input type="hidden" name="username" value="{{$user->username}}">
+                                                <input type="hidden" name="user_id" value="{{$user->id}}">
                                                 <button
-                                                    type="submit"  class="follow-btn px-4 py-2 text-lg text-white rounded-lg bg-sky-400 hover:bg-gray-600">
-                                                    {{__('Chat')}}
+                                                    type="submit"
+                                                    class="follow-btn w-full md:w-auto px-4 py-2 text-base text-white rounded-lg text-center  bg-sky-400 hover:bg-gray-600">
+                                                    Chat
                                                 </button>
-                                        </form>
+                                            </form>
                                         @endif
-                                </div>
-                                    <ul class="flex text-sm">
-                                    <li class="me-2">
-                                        @if($user->is_premium===1)
-                                        <span class="font-semibold text-white ">{{ $user->following_count }}</span>
-                                        <span class="font-semibold text-white ">Following</span>
-                                        @else
-                                            <span class="font-semibold text-gray-900 ">{{ $user->following_count }}</span>
-                                            <span>Following</span>
+                                    </div>
+
+                                    <ul class="flex flex-col xs:flex-row sm:flex-row items-center justify-center gap-1 sm:gap-3 mt-3 text-sm w-full">
+                                        <li class="flex flex-col items-center px-2">
+                                            @if($user->is_premium===1)
+                                                <span class="font-semibold text-white text-lg">{{ $user->following_count }}</span>
+                                                <span class="font-semibold text-white text-xs">Following</span>
+                                            @else
+                                                <span class="font-semibold text-gray-900 text-lg">{{ $user->following_count }}</span>
+                                                <span class="text-xs">Following</span>
                                             @endif
-                                    </li>
-                                    <li>
-                                        @if($user->is_premium===1)
-                                        <span id="followers-count-{{ $user->id }}" class="font-semibold text-white ">{{ $user->followers_count}}</span>
-                                            <span class="font-semibold text-white ">Followers</span>
-                                        @else
-                                        <span id="followers-count-{{ $user->id }}" class="font-semibold text-gray-900 ">{{ $user->followers_count}}</span>
-                                        <span>Followers</span>
-                                        @endif
-                                    </li>
-                                </ul>
+                                        </li>
+                                        <li class="flex flex-col items-center px-2">
+                                            @if($user->is_premium===1)
+                                                <span id="followers-count-{{ $user->id }}" class="font-semibold text-white text-lg">{{ $user->followers_count}}</span>
+                                                <span class="font-semibold text-white text-xs">Followers</span>
+                                            @else
+                                                <span id="followers-count-{{ $user->id }}" class="font-semibold text-gray-900 text-lg">{{ $user->followers_count}}</span>
+                                                <span class="text-xs">Followers</span>
+                                            @endif
+                                        </li>
+                                    </ul>
 
                             </div>
 
@@ -127,7 +132,9 @@
                                 </div>
             </section>
         </div>
+            </div>
     </div>
+
 </x-app-layout>
 
 <script>
