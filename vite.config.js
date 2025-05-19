@@ -8,4 +8,6 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-})
+    // Esto fuerza la base de los assets en producción
+    base: process.env.ASSET_URL ? process.env.ASSET_URL + '/build/' : '/build/',
+});
