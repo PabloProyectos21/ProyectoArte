@@ -41,8 +41,8 @@
                     @php
                         $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
                         $imageSrc = auth()->user()->profile_picture
-                            ? ($isUrl ? auth()->user()->profile_picture : asset('storage/' . auth()->user()->profile_picture))
-                            : asset('images/profile_pictures/default-user.jpg');
+                            ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/' . auth()->user()->profile_picture))
+                            : secure_asset('images/profile_pictures/default-user.jpg');
                     @endphp
 
                     <img class="w-13 h-13 rounded-full"
@@ -102,7 +102,7 @@
                         <input type="radio" name="background_image" value="fondos/fondo{{ $i }}.png"
                                class="peer sr-only"
                         {{ (old('background_image', $user->background_image ?? '') == 'fondos/fondo'.$i.'.png') ? 'checked' : '' }}/>
-                        <img src="{{ asset('fondos/fondo'.$i.'.png') }}" alt="backgorundimage"
+                        <img src="{{ secure_asset('fondos/fondo'.$i.'.png') }}" alt="backgorundimage"
                              class="w-full h-32 object-cover rounded-lg border-4 border-transparent peer-checked:border-purple-600 cursor-pointer transition">
                     </label>
                 @endfor

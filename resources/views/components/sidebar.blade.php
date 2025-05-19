@@ -22,8 +22,8 @@
                                 @php
                                     $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
                                     $imageSrc = auth()->user()->profile_picture
-                                        ? ($isUrl ? auth()->user()->profile_picture : asset('storage/' . auth()->user()->profile_picture))
-                                        : asset('images/profile_pictures/default-user.jpg');
+                                        ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/' . auth()->user()->profile_picture))
+                                        : secure_asset('images/profile_pictures/default-user.jpg');
                                 @endphp
 
                                 <img class="w-10 h-10 rounded-full"

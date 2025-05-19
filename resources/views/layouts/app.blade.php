@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'FlowArt') }}</title>
 
         <!-- Fonts -->
-        <link rel="icon" href="{{asset('images/logo2.png')}}" type="image/png">
+        <link rel="icon" href="{{secure_asset('images/logo2.png')}}" type="image/png">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

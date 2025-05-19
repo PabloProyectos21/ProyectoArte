@@ -99,7 +99,7 @@
             <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300 shadow">
                 @php
                     $isUrl = Str::startsWith($user->profile_picture, ['http://', 'https://']);
-                    $imageSrc = $isUrl ? $user->profile_picture : asset('storage/' . $user->profile_picture);
+                    $imageSrc = $isUrl ? $user->profile_picture : secure_asset('storage/' . $user->profile_picture);
                 @endphp
                 <img  src="{{ $imageSrc }}"
                      alt="Profile Image"

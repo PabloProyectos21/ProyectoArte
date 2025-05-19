@@ -5,7 +5,7 @@
             @if(Auth::user()->is_premium && Auth::user()->background_image)
                 <div
                     class="fixed inset-0 z-0"
-                    style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                    style="background: url('{{ secure_asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
                 </div>
             @endif
         @endauth
@@ -95,7 +95,7 @@
                     <a href="{{ route('publications.show', $publication->id) }}">
                         @php
                             $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
-                            $imageSrc = $isUrl ? $publication->image_route : asset('storage/' . $publication->image_route);
+                            $imageSrc = $isUrl ? $publication->image_route : secure_asset('storage/' . $publication->image_route);
                         @endphp
 
                         <img src="{{ $imageSrc }}" alt="{{ $publication->title }}"  class="w-full rounded-lg shadow hover:scale-[1.02] transition duration-300 ease-in-out">
@@ -110,7 +110,7 @@
                                     <a href="{{ route('profile.view', $publication->user->id) }}">
                                         @php
                                             $isUrl = Str::startsWith($publication->user->profile_picture, ['http://', 'https://']);
-                                            $imageSrc = $isUrl ? $publication->user->profile_picture : asset('storage/' . $publication->user->profile_picture);
+                                            $imageSrc = $isUrl ? $publication->user->profile_picture : secure_asset('storage/' . $publication->user->profile_picture);
                                         @endphp
                                         <img src="{{ $imageSrc }}" alt="{{ $publication->user->name." ".$publication->user->surname}}" class="w-20 h-20 rounded-full" />
                                     </a>

@@ -7,8 +7,8 @@
     @php
         $isUrl = Str::startsWith($comment->user->profile_picture ?? '', ['http://', 'https://']);
         $avatar = $comment->user->profile_picture
-            ? ($isUrl ? $comment->user->profile_picture : asset('storage/' . $comment->user->profile_picture))
-            : asset('images/profile_pictures/default-user.jpg');
+            ? ($isUrl ? $comment->user->profile_picture : secure_asset('storage/' . $comment->user->profile_picture))
+            : secure_asset('images/profile_pictures/default-user.jpg');
     @endphp
 
     <img src="{{ $avatar }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
@@ -52,8 +52,8 @@
                     @php
                         $isUrl = Str::startsWith($reply->user->profile_picture ?? '', ['http://', 'https://']);
                         $avatar = $reply->user->profile_picture
-                            ? ($isUrl ? $reply->user->profile_picture : asset('storage/' . $reply->user->profile_picture))
-                            : asset('images/profile_pictures/default-user.jpg');
+                            ? ($isUrl ? $reply->user->profile_picture : secure_asset('storage/' . $reply->user->profile_picture))
+                            : secure_asset('images/profile_pictures/default-user.jpg');
                     @endphp
 
                     <img src="{{ $avatar }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">

@@ -3,7 +3,7 @@
 
 <div class="flex items-center justify-between p-4 bg-white border rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
     <div class="flex items-center space-x-4">
-        <img src="{{ $user->profile_picture ?? asset('images/default-user.png') }}"
+        <img src="{{ $user->profile_picture ?? secure_asset('images/default-user.png') }}"
              alt="{{ $user->name }}"
              class="w-10 h-10 rounded-full object-cover">
         <div>

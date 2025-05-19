@@ -7,7 +7,7 @@
                 @if(Auth::user()->is_premium && Auth::user()->background_image)
                     <div
                         class="fixed inset-0 z-0"
-                        style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                        style="background: url('{{ secure_asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
                     </div>
                 @endif
             @endauth
@@ -67,8 +67,8 @@
                                 @php
                                     $isUrl = Str::startsWith($user->profile_picture, ['http://', 'https://']);
                                     $imageSrc = $user->profile_picture
-                                        ? ($isUrl ? $user->profile_picture : asset('storage/' . $user->profile_picture))
-                                        : asset('images/profile_pictures/default-user.jpg');
+                                        ? ($isUrl ? $user->profile_picture : secure_asset('storage/' . $user->profile_picture))
+                                        : secure_asset('images/profile_pictures/default-user.jpg');
                                 @endphp
                                 <a href="{{ route('profile.view', $user->id) }}">
                                 <img class="w-24 h-24 mb-3 rounded-full shadow-lg"

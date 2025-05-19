@@ -4,7 +4,7 @@
         @if($publication->user->is_premium && $publication->user->background_image)
             <div
                 class="fixed inset-0 z-0"
-                style="background: url('{{ asset($publication->user->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                style="background: url('{{ secure_asset($publication->user->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
             </div>
         @endif
         <div class="relative p-4  rounded-lg mt-14 place-items-center z-10">
@@ -13,8 +13,8 @@
             @php
             $isUrl = Str::startsWith($publication->user->profile_picture ?? '', ['http://', 'https://']);
             $avatar = $publication->user->profile_picture
-            ? ($isUrl ? $publication->user->profile_picture : asset('storage/' . $publication->user->profile_picture))
-            : asset('images/profile_pictures/default-user.jpg');
+            ? ($isUrl ? $publication->user->profile_picture : secure_asset('storage/' . $publication->user->profile_picture))
+            : secure_asset('images/profile_pictures/default-user.jpg');
             @endphp
             <div class="flex items-center justify-left mb-4" >
                 <a href="{{ route('profile.view', $publication->user->id) }}">
@@ -57,7 +57,7 @@
 
         @php
             $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
-            $imageSrc = $isUrl ? $publication->image_route : asset('storage/' . $publication->image_route);
+            $imageSrc = $isUrl ? $publication->image_route : secure_asset('storage/' . $publication->image_route);
         @endphp
 
         <img src="{{ $imageSrc }}" alt="{{ $publication->title }}" class="w-full rounded mt-4" />
@@ -198,7 +198,7 @@
                             @if($rec->id!=$publication->id)
                             @php
                                 $isUrl = Str::startsWith($rec->image_route, ['http://', 'https://']);
-                                $recImg = $isUrl ? $rec->image_route : asset('storage/' . $rec->image_route);
+                                $recImg = $isUrl ? $rec->image_route : secure_asset('storage/' . $rec->image_route);
                             @endphp
                             <a href="{{ route('publications.show', $rec->id) }}" class="block hover:scale-[1.02] transition duration-300 ease-in-out bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow hover:shadow-md transition">
                                 <img src="{{ $recImg }}" alt="{{ $rec->title }}" class="w-full h-48 object-cover">

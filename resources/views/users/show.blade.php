@@ -5,7 +5,7 @@
         @if($user->is_premium && $user->background_image)
             <div
                 class="fixed inset-0 z-0"
-                style="background: url('{{ asset($user->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                style="background: url('{{ secure_asset($user->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
             </div>
         @endif
         <div class="relative p-4  rounded-lg mt-14 place-items-center z-10">
@@ -16,7 +16,7 @@
                     @endif
                 @php
                     $isUrl = Str::startsWith($user->profile_picture, ['http://', 'https://']);
-                    $imageSrc = $isUrl ? $user->profile_picture : asset('storage/' . $user->profile_picture);
+                    $imageSrc = $isUrl ? $user->profile_picture : secure_asset('storage/' . $user->profile_picture);
                 @endphp
                 <img src="{{ $imageSrc }}" alt="{{ $user->name." ".$user->surname}}" class="w-30 h-30 pt-4 rounded-full" />
                 <div class="p-5">

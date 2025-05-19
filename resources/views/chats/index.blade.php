@@ -4,7 +4,7 @@
         @if(Auth::user()->is_premium && Auth::user()->background_image)
             <div
                 class="fixed inset-0 z-0"
-                style="background: url('{{ asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                style="background: url('{{ secure_asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
             </div>
         @endif
         <div class="relative p-4  rounded-lg mt-14 place-items-center z-10">

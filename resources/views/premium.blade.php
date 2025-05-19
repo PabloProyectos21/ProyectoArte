@@ -72,11 +72,11 @@
         <article class="md:gap-8 md:grid md:grid-cols-3">
             <div>
                 <div class="flex items-center mb-6">
-                    <img class="w-10 h-10 rounded-full" src="{{asset('images/logo2.png')}}" alt="">
+                    <img class="w-10 h-10 rounded-full" src="{{secure_asset('images/logo2.png')}}" alt="">
                     <div class="ms-4 font-medium dark:text-white">
                         <p>FlowArt</p>
                         <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                            <img src="{{asset('images/spain-flag.png')}}" class="w-5 h-auto mr-1.5" alt="">
+                            <img src="{{secure_asset('images/spain-flag.png')}}" class="w-5 h-auto mr-1.5" alt="">
                                Spain
                         </div>
                     </div>

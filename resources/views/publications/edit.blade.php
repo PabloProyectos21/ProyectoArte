@@ -44,7 +44,7 @@
                 <label class="block mb-2 text-sm font-medium text-gray-700">Current Image</label>
                 @php
                     $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
-                    $imageSrc = $isUrl ? $publication->image_route : asset('storage/' . $publication->image_route);
+                    $imageSrc = $isUrl ? $publication->image_route : secure_asset('storage/' . $publication->image_route);
                 @endphp
 
                 <img src="{{ $imageSrc }}" alt="{{ $publication->title }}"  class="w-full rounded-lg shadow hover:scale-[1.02] transition duration-300 ease-in-out">
