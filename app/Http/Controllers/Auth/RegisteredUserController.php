@@ -61,9 +61,23 @@ class RegisteredUserController extends Controller
             // Puedes incluir background_image si lo quieres dejar nulo
             'background_image' => null,
         ]);
+        if ($request->hasFile('profile_picture')) {
+            $destination = public_path('profile_pictures');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            $filename = uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $result = $request->file('profile_picture')->move($destination, $filename);
+            dd([
+                'filename' => $filename,
+                'destination' => $destination,
+                'result' => $result,
+                'exists' => file_exists($destination . '/' . $filename),
+            ]);
+            $user->profile_picture = 'profile_pictures/' . $filename;
+            Auth::login($user);
 
-        Auth::login($user);
-
-        return redirect()->route('dashboard');
+            return redirect()->route('dashboard');
+        }
     }
 }
