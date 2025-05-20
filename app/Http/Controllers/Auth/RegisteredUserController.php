@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
         // Guardar imagen de perfil si hay
         $profilePicturePath = null;
         if ($request->hasFile('profile_picture')) {
+            // Esto lo guarda en storage/app/public/profile_pictures
             $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
 
@@ -52,32 +53,18 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'profile_picture' => $profilePicturePath,
+            'profile_picture' => $profilePicturePath, // Guardamos solo la ruta relativa en storage
             'description' => $request->description,
             'is_private' => $request->is_private,
-            // Valores por defecto
-            'user_permission_level' => 'user', // Siempre usuario normal
+            'user_permission_level' => 'user',
             'is_premium' => 0,
-            // Puedes incluir background_image si lo quieres dejar nulo
             'background_image' => null,
         ]);
-        if ($request->hasFile('profile_picture')) {
-            $destination = public_path('profile_pictures');
-            if (!file_exists($destination)) {
-                mkdir($destination, 0755, true);
-            }
-            $filename = uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
-            $result = $request->file('profile_picture')->move($destination, $filename);
-            dd([
-                'filename' => $filename,
-                'destination' => $destination,
-                'result' => $result,
-                'exists' => file_exists($destination . '/' . $filename),
-            ]);
-            $user->profile_picture = 'profile_pictures/' . $filename;
-            Auth::login($user);
 
-            return redirect()->route('dashboard');
-        }
+        Auth::login($user);
+
+        return redirect()->route('dashboard');
     }
+
+
 }

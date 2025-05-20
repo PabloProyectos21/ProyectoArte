@@ -26,31 +26,27 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-
         $user = $request->user();
         $user->fill($request->validated());
 
+        // Imagen de perfil
         if ($request->hasFile('profile_picture')) {
             // Eliminar imagen anterior si existe
             if ($user->profile_picture && \Storage::disk('public')->exists($user->profile_picture)) {
                 \Storage::disk('public')->delete($user->profile_picture);
             }
 
-            // Subir nueva imagen
+            // Subir nueva imagen (siempre en storage/app/public/profile_pictures)
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->profile_picture = $path;
         }
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-        // nuevo bloque:
+        // Imagen de fondo
         if ($request->hasFile('background_image')) {
             if ($user->background_image && \Storage::disk('public')->exists($user->background_image)) {
                 \Storage::disk('public')->delete($user->background_image);
             }
-            $user->background_image = $request->file('background_image')
-                ->store('backgrounds','public');
+            $user->background_image = $request->file('background_image')->store('backgrounds', 'public');
         }
 
         if ($user->isDirty('email')) {
@@ -60,7 +56,6 @@ class ProfileController extends Controller
         $user->save();
         return Redirect::route('profile.edit')->with('status','background-updated');
     }
-
 
 
     /**
