@@ -18,7 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
+Route::get('/debug-symlink', function () {
+    return [
+        'is_link' => is_link(public_path('storage')),
+        'target' => readlink(public_path('storage')),
+        'exists' => file_exists(public_path('storage')),
+        'writable' => is_writable(public_path('storage')),
+    ];
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
