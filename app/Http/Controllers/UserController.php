@@ -33,8 +33,6 @@ class UserController extends Controller
         $user = User::with('publications')
             ->withCount(['followers', 'following'])
             ->findOrFail($id);
-        $files = scandir(public_path('profile_pictures'));
-        dd($files);
         return view('users.show', compact('user'));
     }
 
