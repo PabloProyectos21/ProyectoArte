@@ -100,7 +100,7 @@
                     <!-- Contenedor del carrusel -->
                     <div class="overflow-hidden relative h-56 mt-24 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
                         <!-- Slide 1 -->
-                        <div class="hidden z-30 duration-700 bg-blue-400 ease-in-out" style="height: 170px"
+                        <div class="hidden z-20 duration-700 bg-blue-400 ease-in-out" style="height: 170px"
                              data-carousel-item>
                             <div class="flex  items-center justify-center h-full  dark:">
                                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
