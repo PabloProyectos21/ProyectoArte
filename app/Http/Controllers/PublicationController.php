@@ -56,7 +56,6 @@ class PublicationController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('Entrando al store', $request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -64,18 +63,8 @@ class PublicationController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            // Crear carpeta si no existe
-            $destination = public_path('publications');
-            if (!file_exists($destination)) {
-                mkdir($destination, 0755, true);
-            }
-            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move($destination, $filename);
-            $imagePath = 'publications/' . $filename;
-        } else {
-            $imagePath = null;
-        }
+        // Usa el storage público
+        $imagePath = $request->file('image')->store('publications', 'public');
 
         Publication::create([
             'user_id' => auth()->id(),
@@ -89,8 +78,8 @@ class PublicationController extends Controller
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Publication created successfully.');
-
     }
+
 
     public function edit(Publication $publication)
     {
