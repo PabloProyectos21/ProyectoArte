@@ -146,6 +146,11 @@ class PublicationController extends Controller
             abort(403, 'Unauthorized');
         }
 
+        // Eliminar la imagen física
+        if ($publication->image_route && file_exists(public_path($publication->image_route))) {
+            unlink(public_path($publication->image_route));
+        }
+
         $userId = $publication->user_id;
         $publication->delete();
 
