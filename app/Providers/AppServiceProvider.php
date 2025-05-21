@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\PublicationRating;
+use Illuminate\Support\Facades\URL;
 use App\Observers\PublicationRatingObserver;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         PublicationRating::observe(PublicationRatingObserver::class);
-        if (config('app.env') === 'production') {
-            URL::forceScheme('https');
-        }
+        URL::forceScheme('https');
     }
 }

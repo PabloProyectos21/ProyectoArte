@@ -41,7 +41,9 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/publications', [PublicationController::class, 'store'])->name('publications.store');
-    Route::get('/publications', [PublicationController::class, 'store'])->name('publications.index');
+    Route::get('/publications', function() {
+        return redirect()->route('dashboard');
+    })->name('publications.index');
 
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/comments/{comment}/like', [CommentController::class, 'toggleLike']);
