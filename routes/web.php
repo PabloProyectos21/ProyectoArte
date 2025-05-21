@@ -60,8 +60,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::post('/publications', [PublicationController::class, 'store'])->name('publications.store');
-
 
 
 Route::get('/', function () {
@@ -79,6 +77,11 @@ Route::get('/explore-users', [UserController::class, 'explore'])->name('users.ex
 
 Route::get('/users/{user}', [UserController::class, 'show'])->name('profile.view');
 
+
+Route::get('/publications', function () {
+    return redirect()->route('dashboard');
+})->name('publications.index');
+Route::post('/publications', [PublicationController::class, 'store'])->name('publications.store');
 
 
 
@@ -118,7 +121,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
 
 });
-
 
 
 
