@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/chats/create', [ChatController::class, 'create'])->name('chats.create');
     Route::post('/chats/create-or-redirect', [ChatController::class, 'createOrRedirect'])->name('chats.createOrRedirect');
     Route::get('/users/search', [App\Http\Controllers\UserController::class, 'searchByUsername'])->name('users.autocomplete');
+    Route::get('/publications', function() {
+        return redirect()->route('dashboard');
+    })->name('publications.index');
 });
 
 
