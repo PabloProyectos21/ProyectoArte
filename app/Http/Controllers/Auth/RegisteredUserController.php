@@ -41,11 +41,22 @@ class RegisteredUserController extends Controller
         ]);
 
         // Guardar imagen de perfil si hay
-        $profilePicturePath = null;
         if ($request->hasFile('profile_picture')) {
-            // Esto lo guarda en storage/app/public/profile_pictures
-            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            // Crear carpeta si no existe
+            $destination = public_path('profile_pictures');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            // Nombre aleatorio único
+            $filename = uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+            // Mover archivo a /public/profile_pictures
+            $request->file('profile_picture')->move($destination, $filename);
+            // Guardar la ruta relativa en la BD
+            $profilePicturePath = 'profile_pictures/' . $filename;
+        } else {
+            $profilePicturePath = null;
         }
+
 
         $user = User::create([
             'name' => $request->name,
