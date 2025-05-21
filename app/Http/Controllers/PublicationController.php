@@ -56,6 +56,7 @@ class PublicationController extends Controller
 
     public function store(Request $request)
     {
+        \Log::info('Entrando al store', $request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
