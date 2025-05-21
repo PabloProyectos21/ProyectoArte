@@ -13,7 +13,7 @@
                         $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
                         $imageSrc = $isUrl
                             ? $publication->image_route
-                            : secure_asset('storage/' . $publication->image_route);
+                            : secure_asset( $publication->image_route);
                     @endphp
                     <a href="{{ route('publications.show', $publication->id) }}">
                     <img class="rounded-t-lg w-full object-cover h-48" src="{{ $imageSrc }}" alt="{{ $publication->title }}" />

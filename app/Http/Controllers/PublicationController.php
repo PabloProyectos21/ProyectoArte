@@ -56,8 +56,6 @@ class PublicationController extends Controller
 
     public function store(Request $request)
     {
-         // Procesar imagen
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -77,6 +75,7 @@ class PublicationController extends Controller
         } else {
             $imagePath = null;
         }
+
         Publication::create([
             'user_id' => auth()->id(),
             'title' => $request->title,
@@ -90,6 +89,7 @@ class PublicationController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Publication created successfully.');
     }
+
     public function edit(Publication $publication)
     {
         // Solo el dueño o un administrador puede editar
@@ -116,8 +116,17 @@ class PublicationController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('publications', 'public');
-            $publication->image_route = $imagePath;
+            // Eliminar imagen anterior si existe
+            if ($publication->image_route && file_exists(public_path($publication->image_route))) {
+                unlink(public_path($publication->image_route));
+            }
+            $destination = public_path('publications');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($destination, $filename);
+            $publication->image_route = 'publications/' . $filename;
         }
 
         $publication->title = $request->title;
@@ -128,6 +137,7 @@ class PublicationController extends Controller
         return redirect()->route('publications.show', $publication->id)
             ->with('success', 'Publication updated successfully.');
     }
+
 
     public function destroy(Publication $publication)
     {
