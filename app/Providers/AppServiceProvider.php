@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         PublicationRating::observe(PublicationRatingObserver::class);
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
