@@ -63,8 +63,9 @@ class PublicationController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Usa el storage público
         $imagePath = $request->file('image')->store('publications', 'public');
+        $fullPath = storage_path('app/public/' . basename($imagePath));
+        @chmod($fullPath, 0775);
 
         Publication::create([
             'user_id' => auth()->id(),
