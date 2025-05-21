@@ -1,4 +1,3 @@
-<div class="fixed -z-100">
 <nav class="fixed top-0 z-50 w-full bg-white border-b  ">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -23,7 +22,7 @@
                                 @php
                                     $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
                                     $imageSrc = auth()->user()->profile_picture
-                                        ? ($isUrl ? auth()->user()->profile_picture : secure_asset(auth()->user()->profile_picture))
+                                        ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/'.auth()->user()->profile_picture))
                                         : secure_asset('images/profile_pictures/default-user.jpg');
                                 @endphp
 
@@ -200,4 +199,3 @@
         </ul>
     </div>
 </aside>
-</div>
