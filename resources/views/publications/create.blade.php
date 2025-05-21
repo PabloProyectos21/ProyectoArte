@@ -3,7 +3,7 @@
     <div class="p-4 sm:ml-64">
         @if(Auth::user()->is_premium && Auth::user()->background_image)
             <div
-                class="fixed inset-0 z-0"
+                class="fixed inset-0 z-0 "
                 style="background: url('{{ secure_asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
             </div>
         @endif
