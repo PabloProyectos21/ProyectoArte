@@ -87,7 +87,7 @@ class PublicationController extends Controller
             'publication_date' => now(),
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Publication created successfully.');
+        return view('dashboard');
     }
 
     public function edit(Publication $publication)
