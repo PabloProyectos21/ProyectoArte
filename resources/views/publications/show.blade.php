@@ -13,7 +13,7 @@
             @php
             $isUrl = Str::startsWith($publication->user->profile_picture ?? '', ['http://', 'https://']);
             $avatar = $publication->user->profile_picture
-            ? ($isUrl ? $publication->user->profile_picture : secure_asset('storage/' . $publication->user->profile_picture))
+            ? ($isUrl ? $publication->user->profile_picture : secure_asset($publication->user->profile_picture))
             : secure_asset('images/profile_pictures/default-user.jpg');
             @endphp
             <div class="flex items-center justify-left mb-4" >

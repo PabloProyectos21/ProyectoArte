@@ -56,6 +56,8 @@ class PublicationController extends Controller
 
     public function store(Request $request)
     {
+         // Procesar imagen
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -63,8 +65,18 @@ class PublicationController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagePath = $request->file('image')->store('publications', 'public');
-
+        if ($request->hasFile('image')) {
+            // Crear carpeta si no existe
+            $destination = public_path('publications');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($destination, $filename);
+            $imagePath = 'publications/' . $filename;
+        } else {
+            $imagePath = null;
+        }
         Publication::create([
             'user_id' => auth()->id(),
             'title' => $request->title,
