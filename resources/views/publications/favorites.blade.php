@@ -36,7 +36,7 @@
                     <a href="{{ route('publications.show', $publication->id) }}" class="block bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow hover:shadow-md transition">
                         @php
                             $isUrl = Str::startsWith($publication->image_route, ['http://', 'https://']);
-                            $imageSrc = $isUrl ? $publication->image_route : secure_asset( $publication->image_route);
+                            $imageSrc = $isUrl ? $publication->image_route : secure_asset( 'storage/'.$publication->image_route);
                         @endphp
 
                         <img src="{{ $imageSrc }}" alt="{{ $publication->title }}" class="w-full rounded mt-4" />

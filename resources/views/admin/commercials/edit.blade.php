@@ -27,7 +27,7 @@
                 <label class="block font-semibold text-gray-700 mb-1">Image (optional)</label>
                 <input type="file" name="image" class="block w-full text-sm text-gray-600">
                 @if ($commercial->image)
-                    <p class="text-sm text-gray-500 mt-1">Current: <a href="{{ secure_asset( $commercial->image) }}" target="_blank" class="text-blue-600 hover:underline">View</a></p>
+                    <p class="text-sm text-gray-500 mt-1">Current: <a href="{{ secure_asset('storage/'. $commercial->image) }}" target="_blank" class="text-blue-600 hover:underline">View</a></p>
                 @endif
             </div>
 

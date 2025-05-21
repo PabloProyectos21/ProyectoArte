@@ -67,7 +67,7 @@
                                 @php
                                     $isUrl = Str::startsWith($user->profile_picture, ['http://', 'https://']);
                                     $imageSrc = $user->profile_picture
-                                        ? ($isUrl ? $user->profile_picture : secure_asset('storage/'. $user->profile_picture))
+                                        ? ($isUrl ? $user->profile_picture : secure_asset( $user->profile_picture))
                                         : secure_asset('images/profile_pictures/default-user.jpg');
                                 @endphp
                                 <a href="{{ route('profile.view', $user->id) }}">
