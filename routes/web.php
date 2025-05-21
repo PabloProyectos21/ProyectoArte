@@ -40,10 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/publications/{publication}', [PublicationController::class, 'destroy'])->name('publications.destroy');
 
 
-    Route::post('/publications', [PublicationController::class, 'store'])->name('publications.store');
-    Route::get('/publications', function () {
-        return redirect()->route('dashboard');
-    })->name('publications.index');
+
 
 
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
@@ -64,7 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/search', [App\Http\Controllers\UserController::class, 'searchByUsername'])->name('users.autocomplete');
 
 });
-
+Route::post('/publications', [PublicationController::class, 'store'])->name('publications.store');
+Route::get('/publications', function () {
+    return redirect()->route('dashboard');
+})->name('publications.index');
 
 
 Route::get('/', function () {

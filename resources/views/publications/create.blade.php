@@ -13,7 +13,6 @@
 
         <form action="{{ route('publications.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
-
             <div>
                 <label class="block text-sm font-medium text-gray-700">Title</label>
                 <input type="text" name="title" value="{{ old('title') }}"
