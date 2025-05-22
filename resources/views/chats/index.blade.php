@@ -85,8 +85,22 @@
                         users.forEach(user => {
                             const item = document.createElement('div');
                             item.className = 'p-2 cursor-pointer hover:bg-purple-100 flex items-center gap-2';
-                            item.innerHTML = `<img src="${user.profile_picture ? 'storage/'+ user.profile_picture : '/images/profile_pictures/default-user.jpg'}" class="w-6 h-6 rounded-full" />
-                                          <span>${user.username} (${user.name})</span>`;
+                            let profilePic;
+                            if (!user.profile_picture) {
+                                // No tiene imagen
+                                profilePic = '/images/profile_pictures/default-user.jpg';
+                            } else if (user.profile_picture.startsWith('http://') || user.profile_picture.startsWith('https://')) {
+                                // Es una URL absoluta/remota
+                                profilePic = user.profile_picture;
+                            } else {
+                                // Es imagen subida por usuario (ruta local)
+                                profilePic = '/storage/' + user.profile_picture;
+                            }
+
+                            item.innerHTML = `
+                            <img src="${profilePic}" class="w-6 h-6 rounded-full" />
+                            <span>${user.username} (${user.name})</span>
+`;
                             item.addEventListener('mousedown', function(e) {
                                 input.value = user.username;
                                 hiddenId.value = user.id;
