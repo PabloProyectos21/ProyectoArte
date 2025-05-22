@@ -18,6 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('/debug/commercial', function () {
+    $fs_path = storage_path('app/public/commercials/ad4.png');
+    $public_symlink = public_path('storage/commercials/ad4.png');
+    return [
+        'fs_exists' => file_exists($fs_path),
+        'public_symlink_exists' => file_exists($public_symlink),
+        'fs_permissions' => decoct(fileperms($fs_path)),
+        'public_symlink_permissions' => file_exists($public_symlink) ? decoct(fileperms($public_symlink)) : null,
+        'is_symlink' => is_link(public_path('storage')),
+        'symlink_points_to' => is_link(public_path('storage')) ? readlink(public_path('storage')) : null,
+    ];
+});
 
 
 Route::middleware('auth')->group(function () {
