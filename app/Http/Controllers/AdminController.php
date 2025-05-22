@@ -126,6 +126,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Commercial created successfully.');
     }
+
     public function createCompany()
     {
         return view('admin.companies.create');
