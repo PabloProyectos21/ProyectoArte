@@ -2,7 +2,7 @@
 <div class="flex">
     <a href="{{ $commercial->media_url }}">
         @php
-            $isDefault = Str::startsWith($commercial->image, ['commercial/']);
+            $isDefault = Str::startsWith($commercial->image, ['commercials/']);
             $imageSrc = $isDefault ? 'storage/'.$commercial->image : secure_asset( $commercial->image);
         @endphp
 
