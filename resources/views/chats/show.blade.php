@@ -16,6 +16,9 @@
                         @foreach($chat->users as $participant)
                             @if($participant->id !== auth()->id())
                                 {{ $participant->name }}{{ !$loop->last ? ',' : '' }}
+                                @php
+                                    $user2=$participant;
+                                @endphp
                             @endif
                         @endforeach
                     </h1>
@@ -39,6 +42,31 @@
                                             {{ $message->content }}
                                         </div>
                                     </div>
+                                    @if($message->sender_id == auth()->id())
+                                        @php
+                                            $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
+                                            $imageSrc = auth()->user()->profile_picture
+                                                ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/'.auth()->user()->profile_picture))
+                                                : secure_asset('images/profile_pictures/default-user.jpg');
+                                        @endphp
+                                        <a href="{{ route('profile.view', auth()->user()->id) }}">
+                                        <img class="w-10 h-10 rounded-full"
+                                             src="{{ $imageSrc }}"
+                                             alt="{{ auth()->user()->name }}" />
+                                        </a>
+                                    @else
+                                        @php
+                                            $isUrl = Str::startsWith($user2->profile_picture, ['http://', 'https://']);
+                                            $imageSrc = $user2->profile_picture
+                                                ? ($isUrl ? $user2->profile_picture : secure_asset('storage/'.$user2->profile_picture))
+                                                : secure_asset('images/profile_pictures/default-user.jpg');
+                                        @endphp
+                                        <a href="{{ route('profile.view', $user2->id) }}">
+                                        <img class="w-10 h-10 rounded-full"
+                                             src="{{ $imageSrc }}"
+                                             alt="{{ $user2->name }}" />
+                                    @endif
+                                    </a>
                                 </div>
                             @empty
                                 <p class="text-gray-500">No messages yet.</p>
