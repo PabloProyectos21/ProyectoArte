@@ -1,5 +1,10 @@
-@include('components.sidebar')
+
 <x-app-layout>
+    @include('components.sidebar')
+
+    <div class="p-4 sm:ml-64 mt-10 overflow-hidden ">
+
+        <div class="p-4 rounded-lg overflow-hidden">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -25,6 +30,8 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 </x-app-layout>
