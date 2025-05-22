@@ -2,8 +2,8 @@
 <div class="flex">
     <a href="{{ $commercial->media_url }}">
         @php
-            $isUrl = Str::startsWith($commercial->image, ['http://', 'https://']);
-            $imageSrc = $isUrl ? $commercial->image : secure_asset( $commercial->image);
+            $isDefault = Str::startsWith($commercial->image, ['commercial/']);
+            $imageSrc = $isDefault ? 'storage/'.$commercial->image : secure_asset( $commercial->image);
         @endphp
 
         <img class="w-14 h-14 rounded-lg object-cover" src="{{ $imageSrc }}" alt="Ad image">
