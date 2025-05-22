@@ -85,7 +85,7 @@
                         users.forEach(user => {
                             const item = document.createElement('div');
                             item.className = 'p-2 cursor-pointer hover:bg-purple-100 flex items-center gap-2';
-                            item.innerHTML = `<img src="${user.profile_picture ? user.profile_picture : '/images/profile_pictures/default-user.jpg'}" class="w-6 h-6 rounded-full" />
+                            item.innerHTML = `<img src="${user.profile_picture ? 'storage/'+ user.profile_picture : '/images/profile_pictures/default-user.jpg'}" class="w-6 h-6 rounded-full" />
                                           <span>${user.username} (${user.name})</span>`;
                             item.addEventListener('mousedown', function(e) {
                                 input.value = user.username;
