@@ -12,23 +12,12 @@ class CommercialSeeder extends Seeder
         $images = ['ad2.png', 'ad3.png', 'ad4.png', 'ad5.png'];
 
         foreach ($images as $image) {
-            $src = database_path('seeders/commercials/' . $image);
-            $dst = storage_path('app/public/commercials/' . $image);
-
-            if (!file_exists(dirname($dst))) {
-                mkdir(dirname($dst), 0775, true);
-            }
-            // Copia el archivo solo si no existe (puedes quitar esto para forzar que lo copie siempre)
-            if (!file_exists($dst)) {
-                copy($src, $dst);
-                @chmod($dst, 0664);
-            }
-
             Commercial::factory()->create([
-                'image' => "commercials/{$image}",
+                'image' => "images/commercials/{$image}",
             ]);
         }
     }
+
 
 
 }
