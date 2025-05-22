@@ -41,7 +41,7 @@
                     @php
                         $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
                         $imageSrc = auth()->user()->profile_picture
-                            ? ($isUrl ? auth()->user()->profile_picture : secure_asset(auth()->user()->profile_picture))
+                            ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/'.auth()->user()->profile_picture))
                             : secure_asset('images/profile_pictures/default-user.jpg');
                     @endphp
 

@@ -43,6 +43,11 @@ class CommercialController extends Controller
         $commercial->update($request->only(['company_id', 'media_url', 'publication_date', 'expiration_date']));
 
         if ($request->hasFile('image')) {
+            // Elimina la imagen anterior si existe
+            if ($commercial->image && \Storage::disk('public')->exists($commercial->image)) {
+                \Storage::disk('public')->delete($commercial->image);
+            }
+            // Sube la nueva imagen
             $path = $request->file('image')->store('commercials', 'public');
             $commercial->image = $path;
             $commercial->save();
@@ -50,6 +55,7 @@ class CommercialController extends Controller
 
         return redirect()->route('admin.commercials')->with('success', 'Ad updated successfully.');
     }
+
 
     public function destroy(Commercial $commercial)
     {

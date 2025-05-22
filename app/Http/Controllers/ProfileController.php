@@ -31,18 +31,12 @@ class ProfileController extends Controller
 
         // Imagen de perfil
         if ($request->hasFile('profile_picture')) {
-            // Eliminar imagen anterior si existe
-            if ($user->profile_picture && file_exists(public_path($user->profile_picture))) {
-                unlink(public_path($user->profile_picture));
+            // Eliminar imagen anterior si existe en storage
+            if ($user->profile_picture && \Storage::disk('public')->exists($user->profile_picture)) {
+                \Storage::disk('public')->delete($user->profile_picture);
             }
-            // Crear carpeta si no existe
-            $destination = public_path('profile_pictures');
-            if (!file_exists($destination)) {
-                mkdir($destination, 0755, true);
-            }
-            $filename = uniqid() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
-            $request->file('profile_picture')->move($destination, $filename);
-            $user->profile_picture = 'profile_pictures/' . $filename;
+            // Subir nueva imagen a storage/app/public/profile_pictures
+            $user->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
 
         // Imagen de fondo
@@ -58,7 +52,7 @@ class ProfileController extends Controller
         }
 
         $user->save();
-        return Redirect::route('profile.edit')->with('status','background-updated');
+        return Redirect::route('profile.edit')->with('status', 'background-updated');
     }
 
 

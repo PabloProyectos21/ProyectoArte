@@ -17,7 +17,7 @@
                     @endif
                 @php
                     $isUrl = Str::startsWith($user->profile_picture, ['http://', 'https://']);
-                    $imageSrc = $isUrl ? $user->profile_picture : secure_asset( $user->profile_picture);
+                    $imageSrc = $isUrl ? $user->profile_picture : secure_asset('storage/'. $user->profile_picture);
                 @endphp
                 <img src="{{ $imageSrc }}" alt="{{ $user->name." ".$user->surname}}" class="w-30 h-30 pt-4 rounded-full" />
                 <div class="p-5">
