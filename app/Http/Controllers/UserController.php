@@ -12,9 +12,11 @@ class UserController extends Controller
         $query = User::query()->withCount(['followers', 'following']);
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('username', 'like', '%' . $request->search . '%')
+                    ->orWhere('name', 'like', '%' . $request->search . '%');
+            });
         }
-
         if ($request->filled('category')) {
             $query->whereHas('publications', function ($q) use ($request) {
                 $q->where('category', $request->category);
