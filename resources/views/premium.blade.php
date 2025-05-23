@@ -6,7 +6,7 @@
     <div class="p-4 rounded-lg overflow-hidden">
         @include('components.bg-premium')
 
-        <div class=" relative z-40 max-w-2xl mx-auto mt-10 p-6 bg-white  rounded-lg shadow text-align-center place-items-center">
+        <div class=" relative z-10 max-w-2xl mx-auto mt-10 p-6 bg-white  rounded-lg shadow text-align-center place-items-center">
 
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Upgrade to Premium</h1>
 
@@ -34,7 +34,7 @@
             @endif
         </div>
 
-        <div class="relative z-40 bg-white  mt-10">
+        <div class="relative z-10 bg-white  mt-10">
             <table class="w-full text-left text-sm text-gray-700  border rounded-lg">
                 <thead class="bg-white text-center">
                 <tr>
@@ -68,7 +68,7 @@
             </table>
         </div>
 
-<div class="relative z-40 bg-white  shadow-lg rounded-lg p-4 mt-16 overflow-y-hidden">
+<div class="relative z-10 bg-white  shadow-lg rounded-lg p-4 mt-16 overflow-y-hidden">
         <article class="md:gap-8 md:grid md:grid-cols-3">
             <div>
                 <div class="flex items-center mb-6">
@@ -97,7 +97,7 @@
                         {{__('Meet other creators')}}</li>
                 </ul>
             </div>
-            <div class="relative z-40 col-span-2 mt-6 md:mt-0">
+            <div class="relative z-10 col-span-2 mt-6 md:mt-0">
                 <div class="flex items-start mb-5">
                     <div class="pe-4">
                         <footer>
