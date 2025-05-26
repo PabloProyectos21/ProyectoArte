@@ -26,8 +26,10 @@
                     <a href="{{ route('profile.view', $user->id) }}">
                         @if($user->is_premium===1)
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">{{ $user->name." ".$user->surname}}</h5>
+                            <h6 class="mb-2 text-2xl font-bold tracking-tight text-white">{{"@". $user->username}}</h6>
                             @else
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $user->name." ".$user->surname}}</h5>
+                            <h6 class="mb-2 text-2xl font-bold tracking-tight text-white">{{ "@". $user->username}}</h6>
 
                         @endif
                                    </a>
