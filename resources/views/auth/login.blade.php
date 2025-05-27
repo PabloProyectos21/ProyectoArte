@@ -41,11 +41,6 @@
                         {{ __('Don`t have an account?') }} <a href="{{ route('register') }}" class="font-medium text-purple-600 hover:underline dark:text-primary-500">{{ __('Register here') }}</a>
                     </p>
                     <div class="flex items-center justify-end mt-4">
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 hover:dark:text-white" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
 
                         <x-primary-button class="ms-3">
                             {{ __('Log in') }}

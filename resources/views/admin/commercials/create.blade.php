@@ -54,7 +54,7 @@
             </div>
 
             <div>
-                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-white">Image (optional)</label>
+                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-white">Image</label>
                 <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-purple-600 file:text-white hover:file:bg-purple-700">
                 @error('image')
                 <span class="text-sm text-red-600">{{ $message }}</span>
