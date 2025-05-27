@@ -27,34 +27,25 @@
                         <!-- SCROLL SOLO AQUÍ -->
                         <div id="chat-messages" class="max-h-[550px] overflow-y-auto pr-2 mb-4">
                             {{-- Mensajes --}}
-                            @forelse($chat->messages->sortBy('created_at') as $message)
-                                <div class="mb-4 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
-                                    <div>
-                                        <div class="text-xs text-gray-400 mb-1 {{ $message->sender_id == auth()->id() ? 'text-right' : '' }}">
-                                <span class="font-semibold">
-                                    {{ $message->sender_id == auth()->id() ? 'You' : $message->sender->name }}
-                                </span>
-                                            •
-                                            {{ $message->created_at->format('H:i d/m/Y') }}
-                                        </div>
-                                        <div class="inline-block px-4 py-2 rounded-lg mt-1
-                                {{ $message->sender_id == auth()->id() ? 'bg-purple-500 text-white rounded-br-none' : 'bg-gray-200 text-gray-800 rounded-bl-none' }}">
-                                            {{ $message->content }}
-                                        </div>
+                            <div class="mb-4 flex justify-end items-end gap-3">
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400 mb-1">
+                                        <span class="font-semibold">You</span>
+                                        • 07:03 27/05/2025
                                     </div>
-                                    @if($message->sender_id == auth()->id())
-                                        @php
-                                            $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
-                                            $imageSrc = auth()->user()->profile_picture
-                                                ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/'.auth()->user()->profile_picture))
-                                                : secure_asset('images/profile_pictures/default-user.jpg');
-                                        @endphp
-                                        <a href="{{ route('profile.view', auth()->user()->id) }}">
-                                        <img class="w-10 h-10 rounded-full"
-                                             src="{{ $imageSrc }}"
-                                             alt="{{ auth()->user()->name }}" />
-                                        </a>
-                                    @else
+                                    <div class="inline-block px-4 py-2 rounded-lg mt-1 bg-purple-500 text-white rounded-br-none">
+                                        qweqwe
+                                    </div>
+                                </div>
+                                <a href="https://proyectoarte-production.up.railway.app/users/1">
+                                    <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Pablo">
+                                </a>
+                            </div>
+
+                            @forelse($chat->messages->sortBy('created_at') as $message)
+                                <div class="mb-4 flex items-end gap-3 {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
+                                    @if($message->sender_id != auth()->id())
+                                        {{-- Imagen del otro usuario a la izquierda --}}
                                         @php
                                             $isUrl = Str::startsWith($user2->profile_picture, ['http://', 'https://']);
                                             $imageSrc = $user2->profile_picture
@@ -62,15 +53,43 @@
                                                 : secure_asset('images/profile_pictures/default-user.jpg');
                                         @endphp
                                         <a href="{{ route('profile.view', $user2->id) }}">
-                                        <img class="w-10 h-10 rounded-full"
-                                             src="{{ $imageSrc }}"
-                                             alt="{{ $user2->name }}" />
+                                            <img class="w-10 h-10 rounded-full" src="{{ $imageSrc }}" alt="{{ $user2->name }}" />
+                                        </a>
                                     @endif
-                                    </a>
+
+                                    <div class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
+                                        <div class="text-xs text-gray-400 mb-1">
+                <span class="font-semibold">
+                    {{ $message->sender_id == auth()->id() ? 'You' : $message->sender->name }}
+                </span>
+                                            •
+                                            {{ $message->created_at->format('H:i d/m/Y') }}
+                                        </div>
+                                        <div class="inline-block px-4 py-2 rounded-lg mt-1
+                {{ $message->sender_id == auth()->id()
+                    ? 'bg-purple-500 text-white rounded-br-none'
+                    : 'bg-gray-200 text-gray-800 rounded-bl-none' }}">
+                                            {{ $message->content }}
+                                        </div>
+                                    </div>
+
+                                    @if($message->sender_id == auth()->id())
+                                        {{-- Imagen tuya a la derecha --}}
+                                        @php
+                                            $isUrl = Str::startsWith(auth()->user()->profile_picture, ['http://', 'https://']);
+                                            $imageSrc = auth()->user()->profile_picture
+                                                ? ($isUrl ? auth()->user()->profile_picture : secure_asset('storage/'.auth()->user()->profile_picture))
+                                                : secure_asset('images/profile_pictures/default-user.jpg');
+                                        @endphp
+                                        <a href="{{ route('profile.view', auth()->user()->id) }}">
+                                            <img class="w-10 h-10 rounded-full" src="{{ $imageSrc }}" alt="{{ auth()->user()->name }}" />
+                                        </a>
+                                    @endif
                                 </div>
                             @empty
                                 <p class="text-gray-500">No messages yet.</p>
                             @endforelse
+
                         </div>
 
                         <form id="message-form" method="POST" action="{{ route('chats.message', $chat->id) }}" class="flex gap-2">
