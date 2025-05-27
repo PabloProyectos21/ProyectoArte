@@ -27,21 +27,6 @@
                         <!-- SCROLL SOLO AQUÍ -->
                         <div id="chat-messages" class="max-h-[550px] overflow-y-auto pr-2 mb-4">
                             {{-- Mensajes --}}
-                            <div class="mb-4 flex justify-end items-end gap-3">
-                                <div class="text-right">
-                                    <div class="text-xs text-gray-400 mb-1">
-                                        <span class="font-semibold">You</span>
-                                        • 07:03 27/05/2025
-                                    </div>
-                                    <div class="inline-block px-4 py-2 rounded-lg mt-1 bg-purple-500 text-white rounded-br-none">
-                                        qweqwe
-                                    </div>
-                                </div>
-                                <a href="https://proyectoarte-production.up.railway.app/users/1">
-                                    <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Pablo">
-                                </a>
-                            </div>
-
                             @forelse($chat->messages->sortBy('created_at') as $message)
                                 <div class="mb-4 flex items-end gap-3 {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
                                     @if($message->sender_id != auth()->id())
