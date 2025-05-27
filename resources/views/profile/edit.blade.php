@@ -11,7 +11,7 @@
                 </div>
             @endif
         @endauth
-        <div class="p-4 rounded-lg overflow-hidden">
+        <div class="relative p-4 rounded-lg mt-14 z-10">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
