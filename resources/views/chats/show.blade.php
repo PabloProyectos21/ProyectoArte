@@ -15,7 +15,7 @@
                         Chat with
                         @foreach($chat->users as $participant)
                             @if($participant->id !== auth()->id())
-                                {{ $participant->name }}{{ !$loop->last ? ',' : '' }}
+                                {{ $participant->name }}
                                 @php
                                     $user2=$participant;
                                 @endphp
