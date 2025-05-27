@@ -42,9 +42,11 @@
                         <td class="px-6 py-4">{{ $publication->created_at->format('Y-m-d') }}</td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex justify-center mt-2">
-                                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"  type="submit" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5">
+                                <form action="{{ route('admin.publications.delete', $publication->id) }}" method="POST">
+                                <button type="submit" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5">
                                     Delete
                                 </button>
+                                    </form>
                             </div>
                             <!-- ...tu modal aquí... -->
                         </td>
