@@ -3,7 +3,14 @@
     @include('components.sidebar')
 
     <div class="p-4 sm:ml-64 mt-10 overflow-hidden ">
-
+        @auth
+            @if(Auth::user()->is_premium && Auth::user()->background_image)
+                <div
+                    class="fixed inset-0 z-0"
+                    style="background: url('{{ secure_asset(Auth::user()->background_image) }}') center center / cover no-repeat; opacity: 0.35;">
+                </div>
+            @endif
+        @endauth
         <div class="p-4 rounded-lg overflow-hidden">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
