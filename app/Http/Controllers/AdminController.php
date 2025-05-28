@@ -111,6 +111,7 @@ class AdminController extends Controller
             'company_id' => 'required|exists:companies,id',
             'media_url' => 'required|url',
             'publication_date' => 'required|date',
+            'ad_text' => 'required',
             'expiration_date' => 'required|date|after_or_equal:publication_date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);

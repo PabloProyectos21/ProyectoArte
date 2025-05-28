@@ -54,6 +54,14 @@
             </div>
 
             <div>
+                <label for="ad_text" class="block text-sm font-medium text-gray-700 dark:text-white">Ad Text</label>
+                <input type="text" name="ad_text" id="ad_text" value="{{ old('ad_text') }}" maxlength="255" required class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-purple-500">
+                @error('ad_text')
+                <span class="text-sm text-red-600">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div>
                 <label for="image" class="block text-sm font-medium text-gray-700 dark:text-white">Image</label>
                 <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-purple-600 file:text-white hover:file:bg-purple-700">
                 @error('image')
