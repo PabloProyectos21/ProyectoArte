@@ -47,7 +47,7 @@
                     <input type="search" name="search" id="search"
                            value="{{ request('search') }}"
                            class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-500"
-                           placeholder="Search users by name..." />
+                           placeholder="Search posts by name..." />
                     <button type="submit"
                             class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-purple-600 rounded-e-lg border border-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-500 dark:hover:bg-purple-600 dark:focus:ring-purple-800">
                         <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"

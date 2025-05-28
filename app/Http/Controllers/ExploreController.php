@@ -11,14 +11,18 @@ class ExploreController extends Controller
 {
     public function index(Request $request)
     {
-        $query = \App\Models\Publication::with(['user' => function ($q) {
+        $query = Publication::with(['user' => function ($q) {
             $q->withCount(['followers', 'following']);
         }]);
 
-
         if ($request->filled('search')) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($userQ) use ($search) {
+                        $userQ->where('name', 'like', "%{$search}%")
+                            ->orWhere('username', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -30,7 +34,8 @@ class ExploreController extends Controller
         $commercial = Commercial::inRandomOrder()
             ->with('company')
             ->first();
-        return view('explore', compact('publications','commercial'));
+
+        return view('explore', compact('publications', 'commercial'));
     }
 
     public function show($id)
